@@ -27,5 +27,14 @@ public class Main {
         List<Integer> f = List.of(8, 7, 14, 5, 4, 9, 10, 11, 6, 13, 12);
         solution = esc.run(s, f);
         System.out.printf("começo: %s\nfim: %-8s\nres: %-8s\niteracoes: %d\n", s, f, solution, esc.getIteracoes());
+
+        for (int idx : solution) {
+            System.out.printf("%d ", s.get(idx));
+        }
+        System.out.println();
+        for (int idx : solution) {
+            System.out.printf("%d ", f.get(idx));
+        }
+        System.out.println();
     }
 }
