@@ -13,6 +13,7 @@ public class TrocoSemReordenar implements IteracoesInterface {
     public int getIteracoes() { return this.iteracoes; }
 
     public List<Integer> run(double valor, Integer[] moedas) {
+        iteracoes = 0;
         int valorInt = (int) (valor * 100);
         List<Integer> res = new ArrayList<>();
 
