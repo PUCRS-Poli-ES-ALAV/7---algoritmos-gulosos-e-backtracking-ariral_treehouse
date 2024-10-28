@@ -5,6 +5,7 @@ import java.util.List;
 import com.pucrs.mauricio.troco.TrocoGuloso;
 import com.pucrs.mauricio.troco.TrocoSemReordenar;
 import com.pucrs.mauricio.intervalos.Escalonamento;
+import com.pucrs.mauricio.rainhas.Rainhas;
 
 public class Main {
     public static void main(String[] args) {
@@ -36,5 +37,8 @@ public class Main {
             System.out.printf("%d ", f.get(idx));
         }
         System.out.println();
+
+        Rainhas r = new Rainhas(7);
+        System.out.println(r.posicoes());
     }
 }
