@@ -6,6 +6,7 @@ import com.pucrs.mauricio.troco.TrocoGuloso;
 import com.pucrs.mauricio.troco.TrocoSemReordenar;
 import com.pucrs.mauricio.intervalos.Escalonamento;
 import com.pucrs.mauricio.rainhas.Rainhas;
+import com.pucrs.mauricio.rainhas.Par;
 
 public class Main {
     public static void main(String[] args) {
@@ -38,7 +39,13 @@ public class Main {
         }
         System.out.println();
 
-        Rainhas r = new Rainhas(7);
-        System.out.println(r.posicoes());
+        int nq = 7;
+        Rainhas r = new Rainhas(nq);
+        System.out.printf("Solucao para rainhas = %d -> %s\n\n", nq, r.posicoes());
+        List<List<Par>> todas = r.todasPosicoes();
+        System.out.println(todas.size());
+        todas.forEach(e -> {
+            System.out.println(e);
+        });
     }
 }

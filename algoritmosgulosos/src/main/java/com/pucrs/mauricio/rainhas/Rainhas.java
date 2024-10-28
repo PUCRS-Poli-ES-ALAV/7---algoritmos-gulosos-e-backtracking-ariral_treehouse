@@ -41,26 +41,48 @@ public class Rainhas {
             for (int x = 0; x < N; x++) {
                 Par pos = new Par(x, y);
                 // linear em relacao ao numero de rainhas (O(n))
-                if (!posicaoValida(pos)) {
+                if (!posicaoValida(pos, out)) {
                     continue;
                 }
-                this.posicoes.add(pos);
+                out.add(pos);
                 if (run(out, n - 1)) {
                     return true;
                 }
-                this.posicoes.remove(this.posicoes.size() - 1);
+                out.remove(out.size() - 1);
             }
         }
         return false;
     }
 
-    private boolean posicaoValida(Par pos1) {
+    private boolean posicaoValida(Par pos1, List<Par> lista) {
         return pos1.x >= 0 && pos1.x < N &&
             pos1.y >= 0 && pos1.y < N &&
-            this.posicoes.stream().allMatch(pos2 -> 
+            lista.stream().allMatch(pos2 -> 
                 pos1.x != pos2.x && 
                 pos1.y != pos2.y &&
-                Math.abs(pos2.x - pos1.x) != Math.abs(pos2.y - pos1.y)
+                Math.abs(pos2.x - pos1.x) != Math.abs(pos2.y - pos1.y) // um quadrado :O
             );
+    }
+
+    public List<List<Par>> todasPosicoes() {
+        List<List<Par>> todasSolucoes = new ArrayList<>();
+        for (int y = 0; y < this.N; y++) {
+            for (int x = 0; x < this.N; x++) {
+                List<Par> res = new ArrayList<>();
+                Par p = new Par(x, y);
+                res.add(p);
+                if (run(res, this.N - 1)) {
+                    // provavelmente ineficiente....
+                    if (todasSolucoes.stream().anyMatch(e -> e.containsAll(res))) {
+                        res.clear();
+                    } else {
+                        todasSolucoes.add(res);
+                    }
+                } else {
+                    res.clear();
+                }
+            }
+        }
+        return todasSolucoes;
     }
 }
