@@ -39,7 +39,7 @@ public class Main {
         }
         System.out.println();
 
-        int nq = 7;
+        int nq = 8;
         Rainhas r = new Rainhas(nq);
         System.out.printf("Solucao para rainhas = %d -> %s\n\n", nq, r.posicoes());
         List<List<Par>> todas = r.todasPosicoes();

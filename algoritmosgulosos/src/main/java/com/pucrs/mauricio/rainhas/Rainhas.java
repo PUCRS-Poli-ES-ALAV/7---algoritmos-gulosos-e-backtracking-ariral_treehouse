@@ -1,6 +1,7 @@
 package com.pucrs.mauricio.rainhas;
 
 import java.util.List;
+import java.util.Stack;
 import java.util.ArrayList;
 
 public class Rainhas {
@@ -37,8 +38,8 @@ public class Rainhas {
         if (n == 0) {
             return true;
         }
-        for (int y = 0; y < N; y++) {
-            for (int x = 0; x < N; x++) {
+        for (int y = 0; y < this.N; y++) {
+            for (int x = 0; x < this.N; x++) {
                 Par pos = new Par(x, y);
                 // linear em relacao ao numero de rainhas (O(n))
                 if (!posicaoValida(pos, out)) {
@@ -66,23 +67,28 @@ public class Rainhas {
 
     public List<List<Par>> todasPosicoes() {
         List<List<Par>> todasSolucoes = new ArrayList<>();
+        todasPosRun(todasSolucoes, new Stack<Par>(), this.N);
+        return todasSolucoes;
+    }
+
+    private boolean todasPosRun(List<List<Par>> res, Stack<Par> out, int n) {
+        if (n == 0) {
+            if (res.stream().noneMatch(e -> e.containsAll(out))) {
+                res.add(new ArrayList<Par>(out));
+            }
+            return true;
+        }
         for (int y = 0; y < this.N; y++) {
             for (int x = 0; x < this.N; x++) {
-                List<Par> res = new ArrayList<>();
                 Par p = new Par(x, y);
-                res.add(p);
-                if (run(res, this.N - 1)) {
-                    // provavelmente ineficiente....
-                    if (todasSolucoes.stream().anyMatch(e -> e.containsAll(res))) {
-                        res.clear();
-                    } else {
-                        todasSolucoes.add(res);
-                    }
-                } else {
-                    res.clear();
+                if (!posicaoValida(p, out)) {
+                    continue;
                 }
+                out.push(p);
+                todasPosRun(res, out, n - 1);
+                out.pop();
             }
         }
-        return todasSolucoes;
+        return false;
     }
 }
